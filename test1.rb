@@ -1,5 +1,9 @@
 require 'net/http'
 require 'uri'
+url = 'test1.txt'
+file = File.open(url)
+file_data = file.readlines.map(&:chomp)
+
 def larger(array)
   result = []
   array.each_with_index do |element, index|
@@ -18,8 +22,6 @@ def part_two(array)
   p new_array
 end
 
-url = "test1.txt"
-file = File.open(url)
-file_data = file.readlines.map(&:chomp)
+
 
 larger(part_two(file_data))
