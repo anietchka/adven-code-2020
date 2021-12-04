@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'uri'
 url = 'test3.txt'
 file = File.open(url)
 file_data = file.readlines.map(&:chomp)
 array = file_data.map do |n|
-  n.split("")
+  n.split('')
 end
 array
 
@@ -22,17 +24,13 @@ def hash(array)
 end
 
 def compare(hash, array1, array2, num)
-  if hash["1"] >= hash["0"]
+  if hash['1'] >= hash['0']
     array1.each do |n|
-      if  n[num] == "1"
-        array2 << n
-      end
+      array2 << n if n[num] == '1'
     end
   else
     array1.each do |n|
-      if  n[num] == "0"
-        array2 << n
-      end
+      array2 << n if n[num] == '0'
     end
   end
   array2
@@ -82,21 +80,16 @@ i = compare(hash(dispatch(i, h, 8)), heigt, nine, 8)
 p hash(dispatch(j, i, 9))
 p j = compare(hash(dispatch(j, i, 9)), nine, ten, 9)
 
-p "001100111001".to_i(2) * "110100101111".to_i(2)
-
+p '001100111001'.to_i(2) * '110100101111'.to_i(2)
 
 def compare_minus(hash, array1, array2, num)
-  if hash["1"] >= hash["0"]
+  if hash['1'] >= hash['0']
     array1.each do |n|
-      if  n[num] == "0"
-        array2 << n
-      end
+      array2 << n if n[num] == '0'
     end
   else
     array1.each do |n|
-      if  n[num] == "1"
-        array2 << n
-      end
+      array2 << n if n[num] == '1'
     end
   end
   array2
