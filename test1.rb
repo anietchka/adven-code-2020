@@ -5,21 +5,23 @@ require 'uri'
 url = 'test1.txt'
 file = File.open(url)
 file_data = file.readlines.map(&:chomp)
+input_integer = file_data.map {|num| num.to_i}
 
 def larger(array)
   result = []
   array.each_with_index do |element, index|
-    result << element if index != 0 && array[index] > array[index - 1]
+    result << element if index.positive? && element > array[index - 1]
   end
-  puts result.length + 1
+  p result.length
 end
+larger(input_integer)
 
 def part_two(array)
   new_array = []
-  array.each_with_index do |_element, index|
-    new_array << (array[index].to_i + array[index + 1].to_i + array[index + 2].to_i)
+  array.each_with_index do |element, index|
+    new_array << [element, array[index + 1].to_i, array[index + 2].to_i].sum
   end
-  p new_array
+  new_array
 end
 
-larger(part_two(file_data))
+larger(part_two(input_integer))
