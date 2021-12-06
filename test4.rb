@@ -23,8 +23,14 @@ def verification_collumn(array)
   array.transpose.any? { |line| line == %w[X X X X X] }
 end
 
-def split_in_array(grid)
-  grid.map { |grid| grid.map { |line| line.split(' ') } }
+def split_in_array(all_grid)
+  all_grid.map { |grid| grid.map { |line| line.split(' ') } }
+end
+
+def find_numbers_not_used(grid, num)
+  left_numbers = 0
+  grid.each { |line| line.each { |x| left_numbers += x.to_i if x != 'X' } }
+  p left_numbers * num.to_i
 end
 
 def part_one(grid, numbers)
@@ -34,10 +40,8 @@ def part_one(grid, numbers)
       grid.each do |line|
         include_in_line_and_replace?(num, line)
         next unless verification_line(grid) || verification_collumn(grid)
-        left_numbers = 0
-        grid.each { |line| line.each { |x| left_numbers += x.to_i if x != 'X' } }
-        p left_numbers * num.to_i
-        return
+
+        return find_numbers_not_used(grid, num)
       end
     end
   end
@@ -48,12 +52,6 @@ part_one(all_grids, random_numbers)
 def part_two(grid, numbers)
   all_grid_array = split_in_array(grid)
   find_last_winner(numbers,all_grid_array)
-end
-
-def find_numbers_not_used(grid, num)
-  left_numbers = 0
-  grid.each { |line| line.each { |x| left_numbers += x.to_i if x != 'X' } }
-  p left_numbers * num.to_i
 end
 
 def find_last_winner(numbers,grid_array)
