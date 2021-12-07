@@ -4,10 +4,10 @@ input_integer = File.read(filepath).split("\n")[0].split(',').map(&:to_i)
 
 def part_one(array, days)
   count = 0
-  incrimentation(array, count, days)
+  incrementation(array, count, days)
 end
 
-def incrimentation(array, count, day)
+def incrementation(array, count, day)
   new_fish = []
   first_input = []
   array.each do |num|
@@ -21,7 +21,26 @@ def incrimentation(array, count, day)
   count += 1
   result = first_input + new_fish
   return result.length if count == day
-  incrimentation(result, count, day)
+  incrementation(result, count, day)
+end
+
+def part_two(array, days)
+  hash = array.tally
+  days.times do
+    new_fish = Hash.new(0)
+    hash.map do |key, value|
+      if key.zero?
+        new_fish[8] += hash[0]
+        new_fish[6] += hash[0]
+      else
+        new_fish[key - 1 ] += value
+      end
+    end
+    hash = new_fish.clone
+  end
+  hash.values.sum
 end
 
 p part_one(input_integer, 80)
+
+p part_two(input_integer, 256)
