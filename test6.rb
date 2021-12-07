@@ -1,9 +1,6 @@
-require 'net/http'
-require 'uri'
-url = 'test6.txt'
-file = File.open(url)
-file_data = file.readlines.map(&:chomp)
-input_integer = file_data.map {|num| num.split(',').map(&:to_i) }.first
+URL = 'test6.txt'
+filepath = File.expand_path(URL, File.dirname(__FILE__))
+input_integer = File.read(filepath).split("\n")[0].split(',').map(&:to_i)
 
 def part_one(array, days)
   count = 0
